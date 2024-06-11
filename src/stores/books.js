@@ -13,15 +13,38 @@ export const useBookStore = defineStore('books', () => {
   const currentBook = ref({})
 
   const fetchAllBooks = async ()=>{
-    const rawRet   = await ky.get(API_ENDPOINT+'books')
+    const rawRet   = await ky.get(API_ENDPOINT+'books?perPage=40')
     const respJson = await rawRet.json()
     books.value = respJson
-    console.log(books)
+    return respJson
+  }
+
+  const fetchOneBook = async (bookId)=>{
+    const rawRet   = await ky.get(API_ENDPOINT+'books/'+bookId) 
+    const respJson = await rawRet.json()
+    // books.value = respJson
+    return respJson
+  }
+
+  const createNewBook = async (body)=>{
+    const rawRes   = await ky.post(API_ENDPOINT+'books',{json:body})
+    const respJson = await rawRes.json()
+    // books.value = respJso
+    return respJson
+  }
+
+  const updateBook = async ({id,body})=>{
+    const rawRes   = await ky.put(API_ENDPOINT+'books/'+id,{json:body})
+    const respJson = await rawRes.json()
+    // books.value = respJso
     return respJson
   }
 
   return { 
     fetchAllBooks,
+    createNewBook,
+    fetchOneBook,
+    updateBook,
     books,
     currentBook
   }
