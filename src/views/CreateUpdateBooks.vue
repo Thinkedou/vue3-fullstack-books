@@ -74,7 +74,6 @@ const updateOneBook = async ()=>{
 		genre:genre.value
 	} 
 	const tryToUpdate = await updateBook({id:bookId.value,body:bodyToSend})
-	console.log(tryToUpdate)
 	return tryToUpdate
 }
 
@@ -82,11 +81,11 @@ const initRefs = async ()=>{
 
 	// fetch le book selectionné 
 	const thisBook = await fetchOneBook(bookId.value)
-	console.log(thisBook)
-	// title.value = thisBook.title 
-	// firstName.value = thisBook.author.firstName
-	// lastName.value = thisBook.author.lastName
-	// genre.value = thisBook.genre
+	title.value = thisBook.title 
+	firstName.value = thisBook.author.firstName
+	lastName.value = thisBook.author.lastName
+	genre.value = thisBook.genre
+	coverUrl.value = thisBook.coverUri
 	// synchro mes refs avec les valeurs d'init 
 
 }
